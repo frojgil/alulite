@@ -103,12 +103,19 @@
     function dmenunhis() {
         $('#divload').load('nhis');
     }
+    function dmenugis() {
+        $('#divload').load('gis');
+    }
+    function dmenuspf() {
+        $('#divload').load('spf');
+    }
     function dmenuitax() {
         $('#divload').load('itax');
     }
     function dmenurbbill() {
         $('#divload').load('ebbill');
     }
+
 </script>
 <!-- menu navigation section for deduction ends -->
 
@@ -148,6 +155,13 @@
         $('#menudept').click(function () {
             $('#divload').load('dept');
         });
+        $('#menudesig').click(function () {
+            $('#divload').load('designation');
+        });
+        $('#menudaarrear').click(function () {
+            $('#divload').load('daarrear');
+        });
+
 
         //------------ menu navigation section End---------------
 

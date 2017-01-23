@@ -55,6 +55,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
             {
                 display:none;
             }
+            
+            .blink_me {
+                animation: blinker 1s linear infinite;
+                color: blue;
+            }
+
+            @keyframes blinker {  
+                50% { opacity: 0.5; }
+            }
         </style>
     </head>
     <!--
@@ -77,7 +86,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     |               | sidebar-mini                            |
     |---------------------------------------------------------|
     -->
-    <body class="hold-transition skin-green sidebar-mini">
+    <body class="hold-transition skin-green sidebar-mini fixed">
         <?php
         include('dbconfig.php');
         ?>

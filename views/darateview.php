@@ -56,9 +56,27 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($_POST['hdaction'] == "save") {
                 $qry = "INSERT INTO da_rate(crnt_da_rate,old_da_rate,da_date)
              VALUES($darate,$olddarate,'$date');";
+                $qry2="select emp_no,basic_pay,grade_pay from emp_master;";
+                $dataqry2 = mysql_query($qry2) or die(mysql_error());
+                while($data=mysql_fetch_array($dataqry2))
+                {
+                 $bp = $data['basic_pay'];
+                 $gp= $data['grade_pay'];
+                $qry3 = "update allowance set da_amt=CEILING((($bp+$gp)*$darate/100)/10)*10 where emp_no='$data[emp_no]';";
+                mysql_query($qry3) or die(mysql_error());
+                }
             } else {
 
                 $qry = "update da_rate set crnt_da_rate=$darate,old_da_rate=$olddarate,da_date='$date' where id='$id';";
+                 $qry2="select emp_no,basic_pay,grade_pay from emp_master;";
+                $dataqry2 = mysql_query($qry2) or die(mysql_error());
+                while($data=mysql_fetch_array($dataqry2))
+                {
+                 $bp = $data['basic_pay'];
+                 $gp= $data['grade_pay'];
+                $qry3 = "update allowance set da_amt=CEILING((($bp+$gp)*$darate/100)/10)*10 where emp_no='$data[emp_no]';";
+                mysql_query($qry3) or die(mysql_error());
+                }
             }
 
             mysql_query($qry) or die(mysql_error());

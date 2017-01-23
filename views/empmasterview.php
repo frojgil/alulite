@@ -7,9 +7,7 @@ header("Access-Control-Allow-Origin:*");
 
 
 if($_SERVER['REQUEST_METHOD'] == "GET") {
-
-
-
+    
 if(isset($_GET['mode']) && $_GET['mode'] == "empnochk")
   {    
 
@@ -38,6 +36,18 @@ if(isset($_GET['mode']) && $_GET['mode'] == "empnochk")
 
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
+    
+     if(isset($_POST['mode']) && $_POST['mode'] == "daratechk"){
+                        $output = array();
+                        $qury = "SELECT crnt_da_rate from da_rate order by da_date desc limit 1;";
+                        $result = mysql_query($qury);
+                        $rowsnum = mysql_num_rows($result);
+                        $person = mysql_fetch_array($result);
+                        $output[] = array('darate'=> $person['crnt_da_rate']);
+                        $json = array("status"=>true, "recordset" => $output, "result"=>"Da got");
+                        echo json_encode($json);
+                        exit;
+        }
 
 
 

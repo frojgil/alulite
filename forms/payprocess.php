@@ -7,10 +7,21 @@
             <div>
                 <div class="box-body">
     <form method="POST" id="PayForm" name="PayForm"> 
+        <div class="form-group col-xs-3">
+                        <label for="date" id="dt">Salary Date</label>
+                        <input type="date" required="required" class="form-control input-sm" name="sdate" id="sdate">
+                    </div>
+        <div class="form-group col-xs-2">
+            <br>
         <input type="submit" value="Click to process the pay" class="btn btn-success" id="pay" name="pay"/>
-        &nbsp;&nbsp;&nbsp;<label id="loader" style="display:none;color:green"><i class="fa fa-spinner fa-pulse fa-2x fa-fw margin-bottom"></i>Saving Record</label>
+        </div>
+        <div class="form-group col-xs-3">
+            <br>
+        <label id="loader" style="display:none;color:green"><i class="fa fa-spinner fa-pulse fa-2x fa-fw margin-bottom"></i>Saving Record</label>
+        
                     &nbsp;&nbsp;&nbsp;<label id="errlbl" ></label>
                     </div>
+                </div>
             </div>
         </div>
     </section>
@@ -22,7 +33,7 @@
 
             e.preventDefault();
 
-            console.log("ajx enter");
+            $("#loader").show();
             $.ajax({
                 url: "../views/payview.php",
                 type: "POST",
@@ -41,7 +52,6 @@
                     window.speechSynthesis.speak(admsg);
                     $("#errlbl").html(data.result);
                     $("#errlbl").css('color', 'green');
-                    reloadForm();
                 },
                 error: function (jqXHR, textStatus, errorThrow) {
 

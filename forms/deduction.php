@@ -12,6 +12,8 @@
                 <button class="btn bg-olive  btn-flat margin col-xs-3" onclick="dmenufest();"><b>FESTIVAL ADVANCE</b></button>
                 <button class="btn bg-olive  btn-flat margin col-xs-3" onclick="dmenuveh();"><b>VEHICLE ADVANCE</b></button>
                 <button class="btn bg-olive  btn-flat margin col-xs-3" onclick="dmenurbbill();"><b>EB RECOVERY</b></button>
+                <button class="btn bg-olive  btn-flat margin col-xs-3" onclick="dmenugis();"><b>GIS</b></button>
+                <button class="btn bg-olive  btn-flat margin col-xs-3" onclick="dmenuspf();"><b>SPF</b></button>
                 <button class="btn bg-olive  btn-flat margin col-xs-3" onclick="dmenuitax();"><b>I-TAX</b></button>
                 <button class="btn bg-olive  btn-flat margin col-xs-3" onclick="dmenurel();"><b>RELIEF</b></button>
                 <button class="btn bg-olive  btn-flat margin col-xs-3" id="dmenuptax" ><b>P_Tax Processing</b></button>

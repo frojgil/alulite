@@ -203,7 +203,7 @@
                     </div>
                     
                     <div class="form-group col-xs-3">
-                        <label for="newlonele" id="newlonelelbl">New Loan Eligiblity</label>
+                        <label for="newlonele" id="newlonelelbl" class="blink">New Loan Eligiblity</label>
                         <input type="text"  readonly="readonly"  class="form-control input-sm" name="newloneletxt" id="newloneletxt">
                     </div>
                 </div>
@@ -427,6 +427,7 @@
                             var per = parseInt($('#elipercmb').val());
                             var b = a * per;
                             $('#newloneletxt').val(b / 100);
+                            $(".blink").addClass("blink_me");
                             $('#ondatebaltxt').val(a);
                             var admsg = new SpeechSynthesisUtterance('Getting elegiblity');
                             admsg.pitch = 0.5;

@@ -75,8 +75,8 @@
                         <!-- Custom Tabs -->
                         <div class="nav-tabs-custom">
                             <ul class="nav nav-tabs">
-                                <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true"><i class="fa fa-user"></i> Employee Profile</a></li>
-                                <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false"><i class="fa fa-money"></i> Employee Allowence</a></li>
+                                <li id="emptab" class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true"><i class="fa fa-user"></i> Employee Profile</a></li>
+                                <li class=""><a href="#tab_2" id="alwntab" data-toggle="tab" aria-expanded="false"><i class="fa fa-money"></i> Employee Allowence</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tab_1">
@@ -96,9 +96,15 @@
                                         <div class="form-group col-xs-3">
                                             <label>Designation</label>
                                             <select required="required" class="form-control input-sm" id="empdesgcmb" name="empdesgcmb">
-                                                <option value="1">Director</option>
-                                                <option value="2">Asst Director</option>
-                                                <option value="3">Controller</option>
+                                                <option value="0">-----Select-----</option>
+                                                <?php
+                                                $qry = "select * from desig_master;";
+                                                $result = mysql_query($qry) or die(mysql_error());
+                                                while($desig = mysql_fetch_assoc($result))
+                                                {
+                                                echo '<option   value="'.$desig['desig_id'].'">'.$desig['desig_name'].'</option>';
+                                                }
+                                                ?>
                                             </select>
                                         </div>
                                         <div class="form-group col-xs-3">
@@ -294,7 +300,7 @@
                                         </div>
                                         <div class="form-group col-xs-3">
                                             <label for="empdralwntxt">Dearness Allowance</label>
-                                            <input type="text"  class="form-control input-sm" id="empdralwntxt" name="empdralwntxt" placeholder="DA">
+                                            <input type="text" readonly="readonly"  class="form-control input-sm" id="empdralwntxt" name="empdralwntxt" placeholder="DA">
                                         </div>
                                         <div class="form-group col-xs-3">
                                             <label for="empadatxt">ADA</label>
@@ -306,7 +312,7 @@
                                         </div>
                                         <div class="form-group col-xs-3">
                                             <label for="emphratxt">House Rent Allowance</label>
-                                            <input type="text"  class="form-control input-sm" id="emphratxt" name="emphratxt" placeholder="HRA">
+                                            <input type="text" readonly="readonly"  class="form-control input-sm" id="emphratxt" name="emphratxt" placeholder="HRA">
                                         </div>
                                         <div class="form-group col-xs-3">
                                             <label for="empmatxt">Medical Allowance</label>
@@ -358,15 +364,104 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#empbpcmb").on('change', function () {
-
-            $("#empbpalwntxt").val($(this).find('option:selected').text());
+        $("#btnSubmit").hide();
+        $("#alwntab").on('click', function () {
+          $("#btnSubmit").show();  
+        });
+        $("#emptab").on('click', function () {
+          $("#btnSubmit").hide();  
+        });
+      
+        $("#empbptxt").on('keyup', function () {
+            $("#empbpalwntxt").val($("#empbptxt").val());
         });
 
-        $("#empagpcmb").on('change', function () {
+        $("#empagptxt").on('keyup', function () {
 
-            $("#empagpalwntxt").val($(this).find('option:selected').text());
+            $("#empagpalwntxt").val($("#empagptxt").val());
         });
+        
+        //------------- emp da cal --------------------------------
+         $("#alwntab").on('click', function () {
+               $.ajax({
+                    type: "POST",
+                    data: {'mode': 'daratechk'},
+                    url: "../views/empmasterview.php",
+                    crossDomain: true,
+                    cache: false,
+                    success: function (data)
+                    {
+                       $.each(data.recordset, function (index, obj) {
+                        
+                        var bp = parseInt($("#empbpalwntxt").val());
+                        var gp = parseInt($("#empagpalwntxt").val());
+                        var dapay = bp + gp;
+                        var da =Math.floor(((bp+gp)*obj.darate/100)/10)*10;
+                        $("#empdralwntxt").val(da);
+                        if(dapay<5300)
+                        {
+                        $("#emphratxt").val(240);
+                        }
+                        else if(dapay>5299 && dapay<6700)
+                        {
+                        $("#emphratxt").val(300);
+                        }
+                        else if(dapay>6699 && dapay<8190)
+                        {
+                        $("#emphratxt").val(360);
+                        }
+                        else if(dapay>8189 && dapay<9300)
+                        {
+                        $("#emphratxt").val(440);
+                        }
+                        else if(dapay>9299 && dapay<10600)
+                        {
+                        $("#emphratxt").val(540);
+                        }
+                        else if(dapay>10599 && dapay<11900)
+                        {
+                        $("#emphratxt").val(640);
+                        }
+                        else if(dapay>11899 && dapay<13770)
+                        {
+                        $("#emphratxt").val(760);
+                        }
+                        else if(dapay>13769 && dapay<14510)
+                        {
+                        $("#emphratxt").val(880);
+                        }
+                        else if(dapay>14509 && dapay<16000)
+                        {
+                        $("#emphratxt").val(1000);
+                        }
+                        else if(dapay>15999 && dapay<17300)
+                        {
+                        $("#emphratxt").val(1120);
+                        }
+                        else if(dapay>17299 && dapay<19530)
+                        {
+                        $("#emphratxt").val(1240);
+                        }
+                        else if(dapay>19529 && dapay<20090)
+                        {
+                        $("#emphratxt").val(1360);
+                        }
+                        else if(dapay>20089)
+                        {
+                        $("#emphratxt").val(1400);
+                        }
+                    });
+                    },
+                    error: function (jqXHR, textStatus, errorThrow) {
+                        $("#errlbl").html("Error While DA Calculating");
+                        $("#errlbl").css('color', 'red');
+                    }
+
+                });
+
+        });
+
+        // -------------  End employee da cal -------------------------
 
         // -------------  employee number ajax available check -------------------------
 
@@ -604,10 +699,6 @@
                 cache: false,
                 success: function (data)
                 {
-                    console.log("rec " + data.status);
-
-
-
                     $.each(data.recordset, function (index, obj) {
 
                         console.log("ob " + obj.emp_no);

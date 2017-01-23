@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                             $date = $date - 1;
                         }
                         $qry3 = "select sum(pf_sub) + sum(recovery) as cumulative from pf_cumulative "
-                                . "where pf_date >= '$date-04-01' and emp_no = '$empno' group by emp_no;";
+                                . "where sal_date >= '$date-04-01' and emp_no = '$empno' group by emp_no;";
                         $result3 = mysql_query($qry3);
                         $person_data3 = mysql_fetch_array($result3);
 
@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
                             $date = $date - 1;
                         }
                         $qry3 = "select sum(pf_sub) + sum(recovery) as cumulative from pf_cumulative "
-                                . "where pf_date >= '$date-04-01' and emp_no = '$empno' group by emp_no;";
+                                . "where sal_date >= '$date-04-01' and emp_no = '$empno' group by emp_no;";
                         $result3 = mysql_query($qry3);
                         $person_data3 = mysql_fetch_array($result3);
 
